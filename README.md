@@ -2,15 +2,18 @@
 基于Vue2.0的移动端省/市/区选择器
 
 # 一、实现效果
-<img width="469" height="947" alt="image" src="https://github.com/user-attachments/assets/efe18421-cca9-4974-85d6-6d0ec989bb6a" />
+<img width="470" height="947" alt="image" src="https://github.com/user-attachments/assets/7739c3f4-fe2c-4d37-8bf2-a2c0deec5308" />
 
-<img width="469" height="951" alt="image" src="https://github.com/user-attachments/assets/3d32a15f-aed6-4b81-81ee-3764c740ab62" />
+
+<img width="470" height="949" alt="image" src="https://github.com/user-attachments/assets/28bc1285-a2ea-4e1d-934c-d55b44bb46db" />
+
 
 ### 1、支持分级选择地址（最多三级）
 ### 2、支持输入至少2个字模糊搜索
 ### 3、支持切换省/市/区重新选择
-### 4、支持默认已选地区
-### 5、isFinalNode 判断是否最里层，限制须选择所有层级
+### 4、可清除已选
+### 5、支持默认已选地区
+### 6、isFinalNode 判断是否最里层，限制须选择所有层级
 
 
 # 二、调用方式
