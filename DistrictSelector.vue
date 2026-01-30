@@ -5,6 +5,7 @@
       <div class="selected-group-box">
         <span class="selected-group-title">已选地区：</span>
         <span class="selected-group">{{ selectedGroup.map((item) => item.label).join(' / ') }}</span>
+        <van-icon v-if="selectedGroup.length" @click="handleClear" name="cross" color="#409EFF" size="16" />
       </div>
       <div class="search-box">
         <van-search v-model="searchValue" placeholder="省/市/区" clearable shape="round" background="#FFFFFF" />
@@ -133,6 +134,10 @@ export default {
     this.getAddressList();
   },
   methods: {
+    handleClear () {
+      this.handleReset();
+      this.getAddressList();
+    },
     handleReset() {
       this.tabResultLists = this.baseLists;
 
@@ -409,7 +414,7 @@ export default {
         };
         
         // 递归处理子节点，将当前节点的 value 作为子节点的 parentValue
-        // 增加层级 level，判断是否最里层 isFinalNode
+        // 增加层级 level，判断是否最内层 isFinalNode
         if (node.children && Array.isArray(node.children) && node.children.length > 0) {
           newNode.children = this.addPropToTree(node.children, node.value, newNode.level + 1);
         } else {
@@ -476,7 +481,6 @@ export default {
     padding: 10px 15px;
     border-bottom: 1px solid #f0f0f0;
     display: flex;
-    justify-content: space-between;
     flex-wrap: nowrap;
     align-items: center;
     .selected-group-title {
@@ -487,7 +491,8 @@ export default {
     .selected-group {
       font-size: 14px;
       color: @colosrs;
-      width: calc(100vw - 30px);
+      max-width: calc(100vw - 130px);
+      margin-right: 10px;
       font-weight: normal;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -591,4 +596,3 @@ export default {
   }
 }
 </style>
-
