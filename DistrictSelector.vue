@@ -409,7 +409,7 @@ export default {
         };
         
         // 递归处理子节点，将当前节点的 value 作为子节点的 parentValue
-        // 增加层级 level，判断是否最内层 isFinalNode
+        // 增加层级 level，判断是否最里层 isFinalNode
         if (node.children && Array.isArray(node.children) && node.children.length > 0) {
           newNode.children = this.addPropToTree(node.children, node.value, newNode.level + 1);
         } else {
@@ -591,3 +591,4 @@ export default {
   }
 }
 </style>
+
