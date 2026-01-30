@@ -90,25 +90,25 @@ export default {
         // [
         //   {
         //     value: '232423423523489875',
-        //     label: '云南',
+        //     label: '浙江省',
         //   },
         //   {
         //     value: '829681197151031296',
-        //     label: '大理',
+        //     label: '杭州市',
         //   },
         //   {
         //     value: '829681197268471808',
-        //     label: '祥云',
+        //     label: '拱墅区',
         //   },
         // ],
         // [
         //   {
         //     value: '232352436564564576',
-        //     label: '江苏',
+        //     label: '安徽省',
         //   },
         //   {
         //     value: '839681197151031296',
-        //     label: '苏州',
+        //     label: '合肥市',
         //   },
         // ],
       ], // 搜索结果列表  悬浮
@@ -122,7 +122,7 @@ export default {
         //   value: '829681197151031296',
         // },
         // {
-        //   label: '朝阳区',
+        //   label: '蜀山区',
         //   value: '829681197331386368',
         // },
       ], // 选中的省市区组
@@ -154,6 +154,7 @@ export default {
             label: item.label,
             level: index,
             parentValue: parentItem ? parentItem.value : null,
+            isFinalNode: item.isFinalNode,
           });
         }
       });
@@ -169,6 +170,7 @@ export default {
         value: item.value,
         level: item.level,
         parentValue: item.parentValue,
+        isFinalNode: item.isFinalNode,
       }));
 
       newSelectedList.forEach((item, index) => {
@@ -177,6 +179,7 @@ export default {
           label: item.label,
           level: item.level,
           parentValue: item.parentValue,
+          isFinalNode: item.isFinalNode,
         };
       });
 
@@ -251,6 +254,7 @@ export default {
             label: item.label,
             level: item.level,
             parentValue: item.parentValue,
+            isFinalNode: item.isFinalNode,
           };
           // 删除this.tabLists中索引大于item.level的项
           this.tabLists = this.tabLists.slice(0, item.level + 1);
@@ -260,6 +264,7 @@ export default {
             value: item.value,
             level: item.level,
             parentValue: item.parentValue,
+            isFinalNode: item.isFinalNode,
           };
           // 删除this.selectedGroup中索引大于item.level的项
           this.selectedGroup = this.selectedGroup.slice(0, item.level + 1);
@@ -319,6 +324,7 @@ export default {
         value: item.value,
         level: item.level,
         parentValue: item.parentValue,
+        isFinalNode: item.isFinalNode,
       }));
 
       this.tabLists = this.$options.data().tabLists;
@@ -328,6 +334,7 @@ export default {
           label: item.label,
           level: item.level,
           parentValue: item.parentValue,
+          isFinalNode: item.isFinalNode,
         };
       });
 
@@ -355,6 +362,10 @@ export default {
     handleConfirm () {
       if (this.selectedGroup.length === 0) {
         Toast(`请选择${this.title}`);
+        return;
+      }
+      if (!this.selectedGroup[this.selectedGroup.length - 1].isFinalNode) {
+        Toast(`请选择完整${this.title}`);
         return;
       }
       // this.selectedGroup 包含 label, value, level, parentValue
@@ -394,12 +405,15 @@ export default {
           firstChar,
           parentValue: parentValue,
           level: level,
+          isFinalNode: false,
         };
         
         // 递归处理子节点，将当前节点的 value 作为子节点的 parentValue
-        // 增加层级 level
+        // 增加层级 level，判断是否最内层 isFinalNode
         if (node.children && Array.isArray(node.children) && node.children.length > 0) {
           newNode.children = this.addPropToTree(node.children, node.value, newNode.level + 1);
+        } else {
+          newNode.isFinalNode = true;
         }
         
         return newNode;
